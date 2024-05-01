@@ -1,8 +1,4 @@
-import React from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useCallback } from "react";
-import { useState } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 
 const PasswordGenerator = () => {
   const [passLength, setPassLength] = useState(8);
@@ -10,6 +6,8 @@ const PasswordGenerator = () => {
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
   const [copybutton, setcopyButton] = useState("Copy", "red");
+
+  const passwordRef = useRef();
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -25,8 +23,6 @@ const PasswordGenerator = () => {
     console.log("re-render");
   }, [passLength, numberAllowed, charAllowed, setPassword]);
 
-  const passwordRef = useRef();
-
   const copyPasswordToClipboard = useCallback(() => {
     console.log(passwordRef);
     passwordRef.current.select();
@@ -37,6 +33,7 @@ const PasswordGenerator = () => {
   useEffect(() => {
     passwordGenerator();
   }, [passLength, numberAllowed, charAllowed]);
+
   return (
     <>
       <div className="bg-gray-800 min-h-screen">
